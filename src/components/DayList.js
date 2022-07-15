@@ -16,7 +16,7 @@ function DayList(props) {
 
   return (
     <ul>
-      { dayListItems }
+      {dayListItems}
     </ul>
   );
 }
