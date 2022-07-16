@@ -10,7 +10,7 @@ export default function InterviewerListItem(props) {
   interviewerClass = interviewerClass.replace(/\s/g, '');
 
   return (
-    <li className={interviewerClass} key={props.id} onClick={() => props.setInterviewer(props.id)}>
+    <li className={interviewerClass} onClick={props.setInterviewer}>
       <img
         className="interviewers__item-image"
         src={props.avatar}
