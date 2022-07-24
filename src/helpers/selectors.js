@@ -22,3 +22,16 @@ export function getInterview(state, interview) {
   return updatedInterviewObject;
 }
 
+export function getInterviewersForDay(state, day) {
+  let interviewersForGivenDay = [];
+  let requiredDay = state.days.filter((currDay) => currDay.name === day);
+  if (requiredDay.length > 0) {
+    let interviewersIDs = requiredDay[0].interviewers;
+    for (let id of interviewersIDs) {
+      interviewersForGivenDay.push(state.interviewers[id]);
+    }
+  }
+
+  return interviewersForGivenDay;
+}
+
