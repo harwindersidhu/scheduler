@@ -10,7 +10,7 @@ export default function useVisualMode(initialMode) {
       let historyArray = [...prev];
       if (replace) {
         historyArray.pop();
-      } 
+      }
       historyArray.push(newMode);
       return historyArray;
     });
