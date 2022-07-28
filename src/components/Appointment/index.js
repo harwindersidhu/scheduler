@@ -14,6 +14,7 @@ const CREATE = "CREATE";
 const SAVING = "SAVING";
 const DELETING = "DELETING";
 const CONFIRMING = "CONFIRMING";
+const EDIT = "EDIT";
 
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
@@ -43,6 +44,8 @@ function cancel(id) {
   .catch((error) => console.log(error));
 }
 
+//<Form student="Harwinder" interviewer={2} interviewers={interviewers} onSave={action("onSave")} onCancel={action("onCancel")} />
+
   return (
 
     <article className="appointment">
@@ -53,9 +56,11 @@ function cancel(id) {
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onDelete={() => confirm()}
+          onEdit={() => transition(EDIT)}
         />
       )}
       {mode === CREATE && <Form interviewers={props.interviewers} onSave={(name, interviewer) => { save(name, interviewer) }} onCancel={() => back()} />}
+      {mode === EDIT && <Form student={props.interview.student} interviewer={props.interview.interviewer.id} interviewers={props.interviewers} onSave={(name, interviewer) => { save(name, interviewer) }} onCancel={() => back()} />}
       {mode === SAVING && <Status message="Saving" />}
       {mode === DELETING && <Status message="Deleting" />}
       {mode === CONFIRMING && <Confirm message="Are you sure you would like to delete?" onConfirm={() => cancel(props.id)} onCancel={() => back()} />}
