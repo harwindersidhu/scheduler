@@ -27,6 +27,26 @@ export default function useApplicationData() {
     })
   }, []);
 
+function countNullInterviews(appointmentsArray, appointments) {
+  let nullInterviews = 0;
+  for (const id of appointmentsArray) {
+    if (appointments[id].interview === null) {
+      nullInterviews += 1;
+    }
+  }
+  return nullInterviews;
+}
+
+  function updateSpots(appointments) {
+    const presentDay= state.day;
+    let requiredDay = state.days.filter((currDay) => currDay.name === presentDay);
+    const appointmentsForPresentDay = requiredDay[0].appointments;
+    const availableSpots = countNullInterviews(appointmentsForPresentDay, appointments);
+    const days = [...state.days];
+    days[requiredDay[0].id - 1].spots = availableSpots;
+    return days;
+  }
+
   function bookInterview(id, interview) {
     console.log(id, interview);
     const appointment = {
@@ -41,8 +61,11 @@ export default function useApplicationData() {
           ...state.appointments,
           [id]: appointment
         };
+      
+        const days = updateSpots(appointments);
         setState({
           ...state,
+          days,
           appointments
         });
       });
@@ -62,10 +85,12 @@ export default function useApplicationData() {
           [id]: appointment
         };
 
+        const days = updateSpots(appointments);
         setState({
           ...state,
+          days,
           appointments
-        })
+        });
       });
   }
   return {
