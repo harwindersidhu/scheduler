@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 
 export default function useApplicationData() {
-  
+
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -27,18 +27,29 @@ export default function useApplicationData() {
     })
   }, []);
 
-function countNullInterviews(appointmentsArray, appointments) {
-  let nullInterviews = 0;
-  for (const id of appointmentsArray) {
-    if (appointments[id].interview === null) {
-      nullInterviews += 1;
+  /**
+   * This function count number of null interviews in a given array of appointments 
+   * @param {*} appointmentsArray array of appointments for a specific day 
+   * @param {*} appointments all appointmnets object
+   * @returns Number of null interviews
+   */
+  function countNullInterviews(appointmentsArray, appointments) {
+    let nullInterviews = 0;
+    for (const id of appointmentsArray) {
+      if (appointments[id].interview === null) {
+        nullInterviews += 1;
+      }
     }
+    return nullInterviews;
   }
-  return nullInterviews;
-}
 
+  /**
+   * This funtion returns days objects with updated spots remaining 
+   * @param {*} appointments Object containing all appointments
+   * @returns Object days
+   */
   function updateSpots(appointments) {
-    const presentDay= state.day;
+    const presentDay = state.day;
     let requiredDay = state.days.filter((currDay) => currDay.name === presentDay);
     const appointmentsForPresentDay = requiredDay[0].appointments;
     const availableSpots = countNullInterviews(appointmentsForPresentDay, appointments);
@@ -47,6 +58,9 @@ function countNullInterviews(appointmentsArray, appointments) {
     return days;
   }
 
+  /**
+   * Given id of appointment and interview object, this function book an interview by calling remote api and update state locally
+   */
   function bookInterview(id, interview) {
     console.log(id, interview);
     const appointment = {
@@ -61,7 +75,7 @@ function countNullInterviews(appointmentsArray, appointments) {
           ...state.appointments,
           [id]: appointment
         };
-      
+
         const days = updateSpots(appointments);
         setState({
           ...state,
@@ -71,6 +85,9 @@ function countNullInterviews(appointmentsArray, appointments) {
       });
   }
 
+  /**
+   * Given id of appointment, this function deletes interview by calling remote api and update state locally
+   */
   function cancelInterview(id) {
     return axios.delete(`/api/appointments/${id}`)
       .then((response) => {

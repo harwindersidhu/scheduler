@@ -4,6 +4,11 @@ export default function useVisualMode(initialMode) {
   const [mode, setMode] = useState(initialMode);
   const [history, setHistory] = useState([initialMode]);
 
+  /**
+   * This function set mode with given newMode String and update the history array according to replace boolean value
+   * @param {*} newMode String
+   * @param {*} replace Boolean
+   */
   function transition(newMode, replace = false) {
     setMode(() => newMode);
     setHistory((prev) => {
@@ -16,6 +21,9 @@ export default function useVisualMode(initialMode) {
     });
   }
 
+  /**
+   * This function removes the last item from history array and update the mode and history state
+   */
   function back() {
     setHistory((prev) => {
       const historyArray = [...prev];
