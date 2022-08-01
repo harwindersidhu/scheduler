@@ -4,6 +4,8 @@ export default function useVisualMode(initialMode) {
   const [mode, setMode] = useState(initialMode);
   const [history, setHistory] = useState([initialMode]);
 
+  console.log("History Array: ", history);
+
   /**
    * This function set mode with given newMode String and update the history array according to replace boolean value
    * @param {*} newMode String
