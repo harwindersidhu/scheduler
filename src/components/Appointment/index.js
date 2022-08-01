@@ -30,12 +30,16 @@ export default function Appointment(props) {
       interviewer
     };
     transition(SAVING);
-    props.bookInterview(props.id, interview)
-      .then(() => transition(SHOW))
-      .catch((error) => {
-        console.log(error);
-        transition(ERROR_SAVE, true);
-      });
+    if (name.trim().length === 0 || interviewer === null) {
+      transition(ERROR_SAVE, true);
+    } else {
+      props.bookInterview(props.id, interview)
+        .then(() => transition(SHOW))
+        .catch((error) => {
+          console.log("Error while saving: ", error);
+          transition(ERROR_SAVE, true);
+        });
+    }
   }
 
   function confirm() {
@@ -48,7 +52,7 @@ export default function Appointment(props) {
     props.cancelInterview(id)
       .then(() => transition(EMPTY))
       .catch((error) => {
-        console.log("Error in: ", error);
+        console.log("Error while deleting: ", error);
         transition(ERROR_DELETE, true);
       });
   }
