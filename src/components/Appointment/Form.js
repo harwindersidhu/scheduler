@@ -13,11 +13,11 @@ export default function Form(props) {
 
   const cancel = () => {
     reset();
-    {props.onCancel()};
+    props.onCancel();
   }
 
   const save = () => {
-    {props.onSave(student, interviewer)};
+    props.onSave(student, interviewer);
   }
 
   return (
