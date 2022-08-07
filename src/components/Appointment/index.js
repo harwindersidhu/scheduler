@@ -30,16 +30,13 @@ export default function Appointment(props) {
       interviewer
     };
     transition(SAVING);
-    if (name.trim().length === 0 || interviewer === null) {
-      transition(ERROR_SAVE, true);
-    } else {
-      props.bookInterview(props.id, interview)
-        .then(() => transition(SHOW))
-        .catch((error) => {
-          console.log("Error while saving: ", error);
-          transition(ERROR_SAVE, true);
-        });
-    }
+    props.bookInterview(props.id, interview)
+      .then(() => transition(SHOW))
+      .catch((error) => {
+        console.log("Error while saving: ", error);
+        transition(ERROR_SAVE, true);
+      });
+
   }
 
   function confirm() {
