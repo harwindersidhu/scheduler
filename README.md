@@ -1,5 +1,10 @@
 # Interview Scheduler
-Using the latest tools and techniques, we build and test a React application that allows users to book and cancel interviews. We combine a concise API with a WebSocket server to build a realtime experience.
+Using the latest tools and techniques, we build and test a React application that allows users to book, edit and cancel interviews. We combine a concise API with a WebSocket server to build a realtime experience. We test the project in different environments as stated:
+
+- If we want to manually test our components in isolation: use Storybook.
+- If we want to run our entire application in development mode: use webpack-dev-server.
+- If we want to run unit or integration tests from the command line: use Jest.
+- If we want to run automated end-to-end tests in the browser: use Cypress.
 
 ## Setup
 
@@ -22,6 +27,12 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## Running Cypress
+
+```sh
+npm run cypress
+```
 ## Dependencies
 
 - React
@@ -29,6 +40,7 @@ npm run storybook
 - Node.js
 - Storybook
 - Jest
+- Cypress
 
 ## Screenshots
 
