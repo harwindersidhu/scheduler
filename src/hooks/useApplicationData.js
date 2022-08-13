@@ -48,22 +48,6 @@ export default function useApplicationData() {
   }, []);
 
   /**
-   * This function count number of null interviews in a given array of appointments 
-   * @param {*} appointmentsArray array of appointments for a specific day 
-   * @param {*} appointments all appointmnets object
-   * @returns Number of null interviews
-   */
-  function countNullInterviews(appointmentsArray, appointments) {
-    let nullInterviews = 0;
-    for (const id of appointmentsArray) {
-      if (appointments[id].interview === null) {
-        nullInterviews += 1;
-      }
-    }
-    return nullInterviews;
-  }
-
-  /**
    * This funtion returns days objects with updated spots remaining 
    * @param {*} appointments Object containing all appointments
    * @returns Object days
@@ -72,7 +56,8 @@ export default function useApplicationData() {
     const presentDay = state.day;
     let requiredDay = state.days.filter((currDay) => currDay.name === presentDay);
     const appointmentsForPresentDay = requiredDay[0].appointments;
-    const availableSpots = countNullInterviews(appointmentsForPresentDay, appointments);
+    const availableSpots = appointmentsForPresentDay.filter((appointmentID) => appointments[appointmentID].interview === null).length;
+    console.log("Available spots: ", availableSpots);
     const days = [...state.days];
     days[requiredDay[0].id - 1].spots = availableSpots;
     return days;
