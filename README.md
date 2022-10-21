@@ -6,6 +6,8 @@ Using the latest tools and techniques, we build and test a React application tha
 - If we want to run unit or integration tests from the command line: use Jest.
 - If we want to run automated end-to-end tests in the browser: use Cypress.
 
+Fork and clone [scheduler-api](https://github.com/lighthouse-labs/scheduler-api) and follow README.md instructions. This is a backend for the scheduler. 
+
 ## Setup
 
 Install dependencies with `npm install`.
